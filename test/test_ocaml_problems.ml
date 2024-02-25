@@ -66,8 +66,44 @@ let suite_8 =
        ]
 ;;
 
+let suite_57 =
+  "Tests Problem 57"
+  >::: [ ("test1"
+          >:: fun _ ->
+          let open Ocaml_problems.Prob_57 in
+          let list = [ 3; 2; 5; 7; 1 ] in
+          let tree = construct list in
+          let expected_tree =
+            Node
+              ( 3
+              , Node (2, Node (1, Empty, Empty), Empty)
+              , Node (5, Empty, Node (7, Empty, Empty)) )
+          in
+          assert_equal tree expected_tree)
+       ]
+;;
+
+let suite_67 =
+  "Tests Problem 67"
+  >::: [ ("test1"
+          >:: fun _ ->
+          let open Ocaml_problems.Prob_67 in
+          let tree =
+            Node
+              ( 'a'
+              , Node ('b', Node ('d', Empty, Empty), Node ('e', Empty, Empty))
+              , Node ('c', Empty, Node ('f', Node ('g', Empty, Empty), Empty)) )
+          in
+          let tree_string = string_of_tree tree in
+          let expected_string = "a(b(d,e),c(,f(g,)))" in
+          assert_equal tree_string expected_string)
+       ]
+;;
+
 let () =
   run_test_tt_main suite_1;
   run_test_tt_main suite_7;
-  run_test_tt_main suite_8
+  run_test_tt_main suite_8;
+  run_test_tt_main suite_57;
+  run_test_tt_main suite_67
 ;;
