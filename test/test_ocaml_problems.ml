@@ -1,11 +1,10 @@
 open OUnit2
 
-let printer l_of_l = 
-  let s = ref "" in 
-  List.iter (fun (list) -> 
-    (List.iter (fun (item) -> s:= !s ^ (item)) list;);
-    ) l_of_l;
-    !s
+let printer l_of_l =
+  let s = ref "" in
+  List.iter (fun list -> List.iter (fun item -> s := !s ^ item) list) l_of_l;
+  !s
+;;
 
 let suite_1 =
   "Tests Problem 1"
@@ -79,13 +78,19 @@ let suite_9 =
           >:: fun _ ->
           let open Ocaml_problems.Prob_9 in
           let list =
-            ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "d"; "e"; "e"; "e"; "e"]
+            [ "a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "d"; "e"; "e"; "e"; "e" ]
           in
           let packed_list = pack list in
-          let expected_list = [
-            ["a"; "a"; "a"; "a"]; ["b"]; ["c"; "c"]; ["a"; "a"]; ["d"; "d"]; ["e"; "e"; "e"; "e"]] in
-          assert_equal ~printer:printer packed_list expected_list)
-          
+          let expected_list =
+            [ [ "a"; "a"; "a"; "a" ]
+            ; [ "b" ]
+            ; [ "c"; "c" ]
+            ; [ "a"; "a" ]
+            ; [ "d"; "d" ]
+            ; [ "e"; "e"; "e"; "e" ]
+            ]
+          in
+          assert_equal ~printer packed_list expected_list)
        ]
 ;;
 
