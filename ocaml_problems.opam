@@ -7,6 +7,7 @@ bug-reports: "https://github.com/KFoxder/ocaml_problems/issues"
 depends: [
   "ocaml"
   "dune" {>= "3.13"}
+  "ounit2"
   "odoc" {with-doc}
 ]
 build: [

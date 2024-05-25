@@ -10,7 +10,7 @@
 (package
  (name ocaml_problems)
  (synopsis "Practice problems for OCaml")
- (depends ocaml dune)
+ (depends ocaml dune ounit2)
  (tags
   (ocaml problems learning)))
 
