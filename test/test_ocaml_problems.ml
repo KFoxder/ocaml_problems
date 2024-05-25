@@ -1,8 +1,14 @@
 open OUnit2
 
-let printer l_of_l =
+let list_printer list =
   let s = ref "" in
-  List.iter (fun list -> List.iter (fun item -> s := !s ^ item) list) l_of_l;
+  List.iter (fun item -> s := !s ^ "|" ^ item) list;
+  !s
+;;
+
+let nested_list_printer l_of_l =
+  let s = ref "" in
+  List.iter (fun nested_item -> List.iter (fun item -> s := !s ^ item) nested_item) l_of_l;
   !s
 ;;
 
@@ -14,7 +20,7 @@ let suite_1 =
           let l = last [ "a"; "b"; "c"; "d" ] in
           match l with
           | None -> assert_failure "Should not be None"
-          | Some s -> assert_equal s "d")
+          | Some s -> assert_equal "d" s)
        ; ("test2"
           >:: fun _ ->
           let open Ocaml_problems.Prob_1 in
@@ -33,28 +39,28 @@ let suite_7 =
           let list = [ One "a"; Many [ One "b"; Many [ One "c"; One "d" ]; One "e" ] ] in
           let flatten_list = flatten list [] in
           let expected_list = [ "a"; "b"; "c"; "d"; "e" ] in
-          assert_equal flatten_list expected_list)
+          assert_equal expected_list flatten_list)
        ; ("test2"
           >:: fun _ ->
           let open Ocaml_problems.Prob_7 in
           let list = [ One "a" ] in
           let flatten_list = flatten list [] in
           let expected_list = [ "a" ] in
-          assert_equal flatten_list expected_list)
+          assert_equal expected_list flatten_list)
        ; ("test3"
           >:: fun _ ->
           let open Ocaml_problems.Prob_7 in
           let list = [] in
           let flatten_list = flatten list [] in
           let expected_list = [] in
-          assert_equal flatten_list expected_list)
+          assert_equal expected_list flatten_list)
        ; ("test4"
           >:: fun _ ->
           let open Ocaml_problems.Prob_7 in
           let list = [ Many [ One "c"; One "d" ] ] in
           let flatten_list = flatten list [] in
           let expected_list = [ "c"; "d" ] in
-          assert_equal flatten_list expected_list)
+          assert_equal expected_list flatten_list)
        ]
 ;;
 
@@ -68,7 +74,7 @@ let suite_8 =
           in
           let compressed_list = compress list in
           let expected_list = [ "a"; "b"; "c"; "a"; "d"; "e" ] in
-          assert_equal compressed_list expected_list)
+          assert_equal expected_list compressed_list)
        ]
 ;;
 
@@ -90,7 +96,32 @@ let suite_9 =
             ; [ "e"; "e"; "e"; "e" ]
             ]
           in
-          assert_equal ~printer packed_list expected_list)
+          assert_equal ~printer:nested_list_printer expected_list packed_list)
+       ]
+;;
+
+let suite_49 =
+  "Tests Problem 49"
+  >::: [ ("test1"
+          >:: fun _ ->
+          let open Ocaml_problems.Prob_49 in
+          let gray_list = gray 1 in
+          let expected_list = [ "0"; "1" ] in
+          assert_equal ~printer:list_printer expected_list gray_list)
+       ; ("test2"
+          >:: fun _ ->
+          let open Ocaml_problems.Prob_49 in
+          let gray_list = gray 2 in
+          let expected_list = [ "00"; "01"; "11"; "10" ] in
+          assert_equal ~printer:list_printer expected_list gray_list)
+       ; ("test3"
+          >:: fun _ ->
+          let open Ocaml_problems.Prob_49 in
+          let gray_list = gray 3 in
+          let expected_list =
+            [ "000"; "001"; "011"; "010"; "110"; "111"; "101"; "100" ]
+          in
+          assert_equal ~printer:list_printer expected_list gray_list)
        ]
 ;;
 
@@ -107,7 +138,7 @@ let suite_57 =
               , Node (2, Node (1, Empty, Empty), Empty)
               , Node (5, Empty, Node (7, Empty, Empty)) )
           in
-          assert_equal tree expected_tree)
+          assert_equal expected_tree tree)
        ]
 ;;
 
@@ -124,7 +155,7 @@ let suite_67 =
           in
           let tree_string = string_of_tree tree in
           let expected_string = "a(b(d,e),c(,f(g,)))" in
-          assert_equal tree_string expected_string)
+          assert_equal expected_string tree_string)
        ]
 ;;
 
@@ -133,6 +164,7 @@ let () =
   run_test_tt_main suite_7;
   run_test_tt_main suite_8;
   run_test_tt_main suite_9;
+  run_test_tt_main suite_49;
   run_test_tt_main suite_57;
   run_test_tt_main suite_67
 ;;
