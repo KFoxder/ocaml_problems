@@ -6,9 +6,19 @@ let list_printer list =
   !s
 ;;
 
-let nested_list_printer l_of_l =
+let nested_list_printer_string l_of_l =
   let s = ref "" in
   List.iter (fun nested_item -> List.iter (fun item -> s := !s ^ item) nested_item) l_of_l;
+  !s
+;;
+
+let nested_list_printer_char l_of_l =
+  let s = ref "" in
+  List.iter
+    (fun nested_item ->
+      List.iter (fun item -> s := !s ^ Char.escaped item) nested_item;
+      s := !s ^ "|")
+    l_of_l;
   !s
 ;;
 
@@ -96,7 +106,7 @@ let suite_9 =
             ; [ "e"; "e"; "e"; "e" ]
             ]
           in
-          assert_equal ~printer:nested_list_printer expected_list packed_list)
+          assert_equal ~printer:nested_list_printer_string expected_list packed_list)
        ]
 ;;
 
@@ -159,6 +169,44 @@ let suite_67 =
        ]
 ;;
 
+let suite_81 =
+  "Tests Problem 81"
+  >::: [ ("test1"
+          >:: fun _ ->
+          let open Ocaml_problems.Prob_81 in
+          let example_graph =
+            { nodes = [ 'b'; 'c'; 'd'; 'f'; 'g'; 'h'; 'k' ]
+            ; edges = [ 'h', 'g'; 'k', 'f'; 'f', 'b'; 'f', 'c'; 'c', 'b' ]
+            }
+          in
+          let paths = paths example_graph 'f' 'b' in
+          let expected_paths = [ [ 'f'; 'c'; 'b' ]; [ 'f'; 'b' ] ] in
+          assert_equal ~printer:nested_list_printer_char expected_paths paths)
+       ; ("test2"
+          >:: fun _ ->
+          let open Ocaml_problems.Prob_81 in
+          let example_graph =
+            { nodes = [ 'b'; 'c'; 'd'; 'f'; 'g'; 'h'; 'k' ]
+            ; edges = [ 'h', 'g'; 'k', 'f'; 'f', 'b'; 'f', 'c'; 'c', 'b' ]
+            }
+          in
+          let paths = paths example_graph 'z' 'b' in
+          let expected_paths = [] in
+          assert_equal ~printer:nested_list_printer_char expected_paths paths)
+       ; ("test3"
+          >:: fun _ ->
+          let open Ocaml_problems.Prob_81 in
+          let example_graph =
+            { nodes = [ 'b'; 'c'; 'd'; 'f'; 'g'; 'h'; 'k' ]
+            ; edges = [ 'h', 'g'; 'k', 'f'; 'f', 'b'; 'f', 'c'; 'c', 'b' ]
+            }
+          in
+          let paths = paths example_graph 'b' 'z' in
+          let expected_paths = [] in
+          assert_equal ~printer:nested_list_printer_char expected_paths paths)
+       ]
+;;
+
 let () =
   run_test_tt_main suite_1;
   run_test_tt_main suite_7;
@@ -166,5 +214,6 @@ let () =
   run_test_tt_main suite_9;
   run_test_tt_main suite_49;
   run_test_tt_main suite_57;
-  run_test_tt_main suite_67
+  run_test_tt_main suite_67;
+  run_test_tt_main suite_81
 ;;
