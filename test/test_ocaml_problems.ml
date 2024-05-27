@@ -22,6 +22,8 @@ let nested_list_printer_char l_of_l =
   !s
 ;;
 
+let string_printer s = s
+
 let suite_1 =
   "Tests Problem 1"
   >::: [ ("test1"
@@ -207,6 +209,17 @@ let suite_81 =
        ]
 ;;
 
+let suite_95 =
+  "Tests Problem 95"
+  >::: [ ("test1"
+          >:: fun _ ->
+          let open Ocaml_problems.Prob_95 in
+          let num_words = full_words 175 in
+          let expected_words = "one-seven-five" in
+          assert_equal ~printer:string_printer expected_words num_words)
+       ]
+;;
+
 let () =
   run_test_tt_main suite_1;
   run_test_tt_main suite_7;
@@ -215,5 +228,6 @@ let () =
   run_test_tt_main suite_49;
   run_test_tt_main suite_57;
   run_test_tt_main suite_67;
-  run_test_tt_main suite_81
+  run_test_tt_main suite_81;
+  run_test_tt_main suite_95
 ;;
