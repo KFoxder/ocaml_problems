@@ -24,6 +24,12 @@ let nested_list_printer_char l_of_l =
 
 let string_printer s = s
 
+let tuple_printer l_of_t =
+  let s = ref "" in
+  List.iter (fun (num, str) -> s := !s ^ string_of_int num ^ str) l_of_t;
+  !s
+;;
+
 let suite_1 =
   "Tests Problem 1"
   >::: [ ("test1"
@@ -109,6 +115,20 @@ let suite_9 =
             ]
           in
           assert_equal ~printer:nested_list_printer_string expected_list packed_list)
+       ]
+;;
+
+let suite_10 =
+  "Tests Problem 10"
+  >::: [ ("test1"
+          >:: fun _ ->
+          let open Ocaml_problems.Prob_10 in
+          let list =
+            [ "a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "e"; "e"; "e"; "e" ]
+          in
+          let encoded = encode list in
+          let expected_list = [ 4, "a"; 1, "b"; 2, "c"; 2, "a"; 1, "d"; 4, "e" ] in
+          assert_equal ~printer:tuple_printer expected_list encoded)
        ]
 ;;
 
@@ -225,6 +245,7 @@ let () =
   run_test_tt_main suite_7;
   run_test_tt_main suite_8;
   run_test_tt_main suite_9;
+  run_test_tt_main suite_10;
   run_test_tt_main suite_49;
   run_test_tt_main suite_57;
   run_test_tt_main suite_67;
