@@ -273,6 +273,29 @@ let suite_81 =
        ]
 ;;
 
+let suite_82 =
+  "Tests Problem 82"
+  >::: [ ("test1"
+          >:: fun _ ->
+          let open Ocaml_problems.Prob_82 in
+          let example_graph =
+            { nodes = [ 'b'; 'c'; 'd'; 'f'; 'g'; 'h'; 'k' ]
+            ; edges = [ 'h', 'g'; 'k', 'f'; 'f', 'b'; 'f', 'c'; 'c', 'b' ]
+            }
+          in
+          let paths = cycles example_graph 'f' in
+          let expected_paths =
+            [ [ 'f'; 'b'; 'c'; 'f' ]
+            ; [ 'f'; 'c'; 'f' ]
+            ; [ 'f'; 'c'; 'b'; 'f' ]
+            ; [ 'f'; 'b'; 'f' ]
+            ; [ 'f'; 'k'; 'f' ]
+            ]
+          in
+          assert_equal ~printer:nested_list_printer_char expected_paths paths)
+       ]
+;;
+
 let suite_95 =
   "Tests Problem 95"
   >::: [ ("test1"
@@ -296,5 +319,6 @@ let () =
   run_test_tt_main suite_57;
   run_test_tt_main suite_67;
   run_test_tt_main suite_81;
+  run_test_tt_main suite_82;
   run_test_tt_main suite_95
 ;;
