@@ -3,6 +3,7 @@ module Prob_7 = Prob_7
 module Prob_8 = Prob_8
 module Prob_9 = Prob_9
 module Prob_10 = Prob_10
+module Prob_11 = Prob_11
 module Prob_49 = Prob_49
 module Prob_57 = Prob_57
 module Prob_67 = Prob_67

@@ -132,6 +132,28 @@ let suite_10 =
        ]
 ;;
 
+let suite_11 =
+  "Tests Problem 11"
+  >::: [ ("test1"
+          >:: fun _ ->
+          let open Ocaml_problems.Prob_11 in
+          let list =
+            [ "a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "e"; "e"; "e"; "e" ]
+          in
+          let encoded = encode list in
+          let expected_list =
+            [ Many (4, "a")
+            ; One "b"
+            ; Many (2, "c")
+            ; Many (2, "a")
+            ; One "d"
+            ; Many (4, "e")
+            ]
+          in
+          assert_equal expected_list encoded)
+       ]
+;;
+
 let suite_49 =
   "Tests Problem 49"
   >::: [ ("test1"
@@ -246,6 +268,7 @@ let () =
   run_test_tt_main suite_8;
   run_test_tt_main suite_9;
   run_test_tt_main suite_10;
+  run_test_tt_main suite_11;
   run_test_tt_main suite_49;
   run_test_tt_main suite_57;
   run_test_tt_main suite_67;
