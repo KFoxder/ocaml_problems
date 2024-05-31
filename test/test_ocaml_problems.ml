@@ -279,6 +279,20 @@ let suite_70 =
                 ] )
           in
           assert_equal expected_tree tree)
+       ; ("test5"
+          >:: fun _ ->
+          let open Ocaml_problems.Prob_70 in
+          let example_tree =
+            T
+              ( 'a'
+              , [ T ('f', [ T ('g', []) ])
+                ; T ('c', [])
+                ; T ('b', [ T ('d', []); T ('e', []) ])
+                ] )
+          in
+          let count = count_nodes example_tree in
+          let expected_count = 7 in
+          assert_equal expected_count count)
        ]
 ;;
 

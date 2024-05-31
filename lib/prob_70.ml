@@ -55,3 +55,8 @@ let tree_of_string (s : string) : 'a mult_tree =
   let stack = Stack.create () in
   tree_of_string_inner s 0 stack
 ;;
+
+let rec count_nodes (tree : 'a mult_tree) : int =
+  match tree with
+  | T (_, children) -> List.fold_left ( + ) 1 (List.map (fun t -> count_nodes t) children)
+;;
