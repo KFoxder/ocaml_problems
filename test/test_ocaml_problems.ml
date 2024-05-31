@@ -235,6 +235,53 @@ let suite_67 =
        ]
 ;;
 
+let suite_70 =
+  "Tests Problem 70"
+  >::: [ ("test1"
+          >:: fun _ ->
+          let open Ocaml_problems.Prob_70 in
+          let example_tree =
+            T
+              ( 'a'
+              , [ T ('f', [ T ('g', []) ])
+                ; T ('c', [])
+                ; T ('b', [ T ('d', []); T ('e', []) ])
+                ] )
+          in
+          let serialized_tree = string_of_tree example_tree in
+          let expected_string = "afg^^c^bd^e^^^" in
+          assert_equal ~printer:string_printer expected_string serialized_tree)
+       ; ("test2"
+          >:: fun _ ->
+          let open Ocaml_problems.Prob_70 in
+          let example_tree = T ('a', [ T ('f', []); T ('g', []) ]) in
+          let serialized_tree = string_of_tree example_tree in
+          let expected_string = "af^g^^" in
+          assert_equal ~printer:string_printer expected_string serialized_tree)
+       ; ("test3"
+          >:: fun _ ->
+          let open Ocaml_problems.Prob_70 in
+          let serialized_tree = "af^g^^" in
+          let tree = tree_of_string serialized_tree in
+          let expected_tree = T ('a', [ T ('f', []); T ('g', []) ]) in
+          assert_equal expected_tree tree)
+       ; ("test4"
+          >:: fun _ ->
+          let open Ocaml_problems.Prob_70 in
+          let serialized_tree = "afg^^c^bd^e^^^" in
+          let tree = tree_of_string serialized_tree in
+          let expected_tree =
+            T
+              ( 'a'
+              , [ T ('f', [ T ('g', []) ])
+                ; T ('c', [])
+                ; T ('b', [ T ('d', []); T ('e', []) ])
+                ] )
+          in
+          assert_equal expected_tree tree)
+       ]
+;;
+
 let suite_81 =
   "Tests Problem 81"
   >::: [ ("test1"
@@ -318,6 +365,7 @@ let () =
   run_test_tt_main suite_49;
   run_test_tt_main suite_57;
   run_test_tt_main suite_67;
+  run_test_tt_main suite_70;
   run_test_tt_main suite_81;
   run_test_tt_main suite_82;
   run_test_tt_main suite_95
