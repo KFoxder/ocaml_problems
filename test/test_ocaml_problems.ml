@@ -357,6 +357,56 @@ let suite_82 =
        ]
 ;;
 
+let suite_92 =
+  "Tests Problem 92"
+  >::: [ ("test1"
+          >:: fun _ ->
+          let open Ocaml_problems.Prob_92 in
+          let tour = knights_tour 3 (0, 0) in
+          let expected_tour = [] in
+          assert_equal expected_tour tour)
+       ; ("test2"
+          >:: fun _ ->
+          let open Ocaml_problems.Prob_92 in
+          let tour = knights_tour 4 (0, 0) in
+          let expected_tour = [] in
+          assert_equal expected_tour tour)
+       ; ("test3"
+          >:: fun _ ->
+          let open Ocaml_problems.Prob_92 in
+          let tour = knights_tour 5 (0, 0) in
+          let expected_tour =
+            [ 0, 0
+            ; 2, 1
+            ; 4, 0
+            ; 3, 2
+            ; 4, 4
+            ; 2, 3
+            ; 4, 2
+            ; 3, 4
+            ; 1, 3
+            ; 0, 1
+            ; 2, 0
+            ; 4, 1
+            ; 3, 3
+            ; 1, 4
+            ; 0, 2
+            ; 1, 0
+            ; 3, 1
+            ; 4, 3
+            ; 2, 2
+            ; 3, 0
+            ; 1, 1
+            ; 0, 3
+            ; 2, 4
+            ; 1, 2
+            ; 0, 4
+            ]
+          in
+          assert_equal expected_tour tour)
+       ]
+;;
+
 let suite_95 =
   "Tests Problem 95"
   >::: [ ("test1"
@@ -382,5 +432,6 @@ let () =
   run_test_tt_main suite_70;
   run_test_tt_main suite_81;
   run_test_tt_main suite_82;
+  run_test_tt_main suite_92;
   run_test_tt_main suite_95
 ;;

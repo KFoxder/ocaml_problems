@@ -11,4 +11,5 @@ module Prob_67 = Prob_67
 module Prob_70 = Prob_70
 module Prob_81 = Prob_81
 module Prob_82 = Prob_82
+module Prob_92 = Prob_92
 module Prob_95 = Prob_95
