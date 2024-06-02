@@ -8,7 +8,7 @@
 let rec rev_inner (l : 'a list) (acc : 'a list) =
   match l with
   | [] -> acc
-  | hd :: tl -> rev_inner tl (List.append [ hd ] acc)
+  | hd :: tl -> rev_inner tl (hd :: acc)
 ;;
 
 let rev l = rev_inner l []
