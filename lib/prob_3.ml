@@ -15,3 +15,8 @@ let rec nth_inner list target_index cur_index =
 ;;
 
 let nth list index = nth_inner list index 0
+
+let%expect_test "Test 2nd Value" =
+  Printf.printf "%d" (nth [ 1; 2; 3; 4 ] 1);
+  [%expect {| 2 |}]
+;;

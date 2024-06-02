@@ -1,2 +1,5 @@
 (library
- (name ocaml_problems))
+ (name ocaml_problems)
+  (inline_tests)
+ (preprocess (pps ppx_expect))
+)
