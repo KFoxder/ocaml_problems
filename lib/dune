@@ -1,5 +1,6 @@
 (library
  (name ocaml_problems)
+  (libraries sexplib)
   (inline_tests)
- (preprocess (pps ppx_expect))
+ (preprocess (pps ppx_expect ppx_sexp_conv))
 )

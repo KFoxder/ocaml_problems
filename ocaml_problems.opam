@@ -9,6 +9,8 @@ depends: [
   "dune" {>= "3.13"}
   "ounit2"
   "ppx_expect"
+  "ppx_sexp_conv"
+  "sexplib"
   "odoc" {with-doc}
 ]
 build: [

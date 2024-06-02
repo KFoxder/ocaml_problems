@@ -10,7 +10,7 @@
 (package
  (name ocaml_problems)
  (synopsis "Practice problems for OCaml")
- (depends ocaml dune ounit2 ppx_expect)
+ (depends ocaml dune ounit2 ppx_expect ppx_sexp_conv sexplib)
  (tags
   (ocaml problems learning)))
 
