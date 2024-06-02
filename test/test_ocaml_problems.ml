@@ -49,6 +49,32 @@ let suite_1 =
        ]
 ;;
 
+let suite_2 =
+  "Tests Problem 2"
+  >::: [ ("test1"
+          >:: fun _ ->
+          let open Ocaml_problems.Prob_2 in
+          let l = last_two [ "a"; "b"; "c"; "d" ] in
+          match l with
+          | None -> assert_failure "Should not be None"
+          | Some s -> assert_equal ("c", "d") s)
+       ; ("test2"
+          >:: fun _ ->
+          let open Ocaml_problems.Prob_2 in
+          let l = last_two [ "a" ] in
+          match l with
+          | None -> ()
+          | Some _ -> assert_failure "Should not have value")
+       ; ("test3"
+          >:: fun _ ->
+          let open Ocaml_problems.Prob_2 in
+          let l = last_two [] in
+          match l with
+          | None -> ()
+          | Some _ -> assert_failure "Should not have value")
+       ]
+;;
+
 let suite_7 =
   "Tests Problem 7"
   >::: [ ("test1"
@@ -420,6 +446,7 @@ let suite_95 =
 
 let () =
   run_test_tt_main suite_1;
+  run_test_tt_main suite_2;
   run_test_tt_main suite_7;
   run_test_tt_main suite_8;
   run_test_tt_main suite_9;
