@@ -1,5 +1,6 @@
 module Prob_1 = Prob_1
 module Prob_2 = Prob_2
+module Prob_3 = Prob_3
 module Prob_7 = Prob_7
 module Prob_8 = Prob_8
 module Prob_9 = Prob_9

@@ -75,6 +75,32 @@ let suite_2 =
        ]
 ;;
 
+let suite_3 =
+  "Tests Problem 3"
+  >::: [ ("test1"
+          >:: fun _ ->
+          let open Ocaml_problems.Prob_3 in
+          let ret_val = nth [ "a"; "b"; "c"; "d" ] 1 in
+          assert_equal "b" ret_val)
+       ; ("test2"
+          >:: fun _ ->
+          let open Ocaml_problems.Prob_3 in
+          try
+            let _ = nth [ "a"; "b"; "c"; "d" ] 10 in
+            assert_failure "Should not get here"
+          with
+          | Nth s -> assert_equal "nth" s)
+       ; ("test3"
+          >:: fun _ ->
+          let open Ocaml_problems.Prob_3 in
+          try
+            let _ = nth [] 0 in
+            assert_failure "Should not get here"
+          with
+          | Nth s -> assert_equal "nth" s)
+       ]
+;;
+
 let suite_7 =
   "Tests Problem 7"
   >::: [ ("test1"
@@ -447,6 +473,7 @@ let suite_95 =
 let () =
   run_test_tt_main suite_1;
   run_test_tt_main suite_2;
+  run_test_tt_main suite_3;
   run_test_tt_main suite_7;
   run_test_tt_main suite_8;
   run_test_tt_main suite_9;
